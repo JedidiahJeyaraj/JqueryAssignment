@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <!-- <script type="text/javascript" src="./bootstrap.js"> -->
+        <!-- </script> -->
+        <!-- Load the plugin bundle. -->
+        <!-- <script src="excel-bootstrap-table-filter-bundle.js"></script> -->
+        <!-- <link rel="stylesheet" href="./bootstrap.css" /> -->
+        <!-- <link rel="stylesheet" href="excel-bootstrap-table-filter-style.css" /> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+        <script type="text/javascript" src="table.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                populateTable("./input.json", "#table");
+            });
+        </script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="row" id="table" style="text-align: center; padding: 10px;font-size: 20px;">
+
+            </div>
+            <div class="row" id="tableRow" style="display:table">
+
+            </div>
+        </div>
+    </body>
+
+</html>

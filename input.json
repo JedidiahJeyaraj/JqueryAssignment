@@ -1,0 +1,41 @@
+{
+    "tableHead": {
+        "tableName": "Student Details",
+        "tableColNames": {
+            "id": "Student ID",
+            "studentName": "Student Name",
+            "age": "Age",
+            "class": "Class",
+            "grade": "Grade",
+            "dob": "Date Of Birth"
+        }
+
+    },
+
+    "tableData":
+        [{
+            "id": "001",
+            "studentName": "Jedidiah",
+            "age": "19",
+            "class": "12",
+            "grade": "96%",
+            "dob": "06-08-1996"
+        },
+        {
+            "id": "002",
+            "studentName": "Jaaa",
+            "age": "18",
+            "class": "12",
+            "grade": "93%",
+            "dob": "06-08-1996"
+        },
+        {
+            "id": "003",
+            "studentName": "Isaaa",
+            "age": "120",
+            "class": "12",
+            "grade": "10%",
+            "dob": "06-08-1996"
+        }]
+
+}
