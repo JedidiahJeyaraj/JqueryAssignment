@@ -1,12 +1,12 @@
 // (function($$1) {
-function populateTable(jsonUrl, targetID) {
+function populateTable(jsonUrl) {
 	$.getJSON(jsonUrl, function(data) {
-		createTableHeader(data.tableHead, targetID, data);
+		createTableHeader(data.tableHead, data);
 		createTableElement(data.tableData);
 	});
 }
 
-function createTableHeader(tableHeadData, targetID, jsonData) {
+function createTableHeader(tableHeadData, jsonData) {
 	$('#table').append('<div class="row">' + tableHeadData.tableName + '</div>');
 	$('#tableRow').append('<div id="tableHeader" style="display: table-header-group; background-color: grey;"></div>');
 	colSize = Math.floor(12 / Object.keys(tableHeadData.tableColNames).length)
@@ -24,15 +24,6 @@ function createTableHeader(tableHeadData, targetID, jsonData) {
 		$(s).appendTo("#" + index)
 			.addClass('glyphicon glyphicon-chevron-down')
 			.attr('onclick', "popupBox('" + index + "', '" + JSON.stringify(jsonData) + "')");
-		// console.log(jsonData);
-		// .attr('onclick', "$.alert({title: 'Alert!', content: '" + index + "',});")
-		// .attr('data-toggle', 'modal')
-		// .attr('data-target', '#myModal');
-
-		// modal = document.createElement('div');
-		// $(modal).html('<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class = "modal-dialog" role = "document" >	< div class ="modal-content" ><div class = "modal-header" ><button type = "button" class = "close" data - dismiss = "modal" aria - label = "Close" > < span aria - hidden = "true" > & times; < /span></button> <h4 class = "modal-title" id = "myModalLabel" > Modal title < /h4> < /div > <div class = "modal-body" >...</div> <div class = "modal-footer" ><button type = "button" class = "btn btn-default" data - dismiss = "modal" > Close < /button> < button type = "button" class = "btn btn-primary" > Save changes < /button> < / div > </div> < / div > </div>')
-		// 	.appendTo('#tableHeader');
-
 	});
 }
 
@@ -40,22 +31,64 @@ function popupBox(rowHead, data) {
 	// console.log(rowHead)/;
 	data = JSON.parse(data)
 	var popupName = data.tableHead.tableColNames[rowHead];
-	var details = "<input type='checkbox' name='" + rowHead + "' value='all' checked>Select All</><br>";
+	var details = "<input type='checkbox' name='" + rowHead + "' value='all' checked onclick='hii(`all`, this, " + JSON.stringify(data) + ")'>Select All</><br>";
 	$.each(data.tableData, function(index, value) {
 		// details.push(value[rowHead]);
 		// console.log(index);
-		details += "<input type='checkbox' name='" + rowHead + "' value='" + value[rowHead] + "'checked>" + value[rowHead] + "</><br>";
+		details += "<input type='checkbox' name='" + rowHead + "' value='" + value[rowHead] + "'checked onclick='hii(`" + value[rowHead] + "`, this , " + JSON.stringify(data) + ")'>" + value[rowHead] + "</><br>";
 	});
 	// console.log(details);
 
 	$.confirm({
 		title: popupName,
-		content: '<input type="text" name="" value="" style="width:95%;">' +
+		content: '<input type="text" name="" style="width:95%;">' +
 			'<span class="glyphicon glyphicon-zoom-in"><a></a></span><br>' +
-			'<div>Sort (A-Z)</div> <span><div>Sort (Z-A)</div></span>' + details
+			'<div id="sortA-Z" data-id="rowHead" >Sort (A-Z)</div> <span><div>Sort (Z-A)</div></span>' + details
 	});
 
-	$("input[type=checkbox]").on('click', 'console.log("asdsd");');
+	// $("input[type=checkbox]").click(console.log("asdsd"));
+}
+
+function hii(data, ele, completeData) {
+	// console.log(completeData);
+	// completeData = JSON.parse(completeData);
+
+	if (data == 'all') {
+		// console.log(this.checked);
+		if (!ele.checked) {
+			$("input[type=checkbox]").attr('checked', false);
+			$('#tableRow').empty();
+			$('#table').empty();
+			createTableHeader(completeData.tableHead, completeData);
+		} else {
+			$("input[type=checkbox]").attr('checked', true);
+			$('#tableRow').empty();
+			$('#table').empty();
+			createTableHeader(completeData.tableHead, completeData);
+			createTableElement(completeData.tableData);
+		}
+	} else {
+		if (!ele.checked) {
+			var dataObj = {},
+				i = 0;
+
+			$.each(completeData.tableData, function(index, value) {
+				if (value[ele.name] === ele.value) {
+					return true;
+				}
+				dataObj[i] = value;
+				i++;
+			});
+			console.log(dataObj);
+			$('#tableRow').empty();
+			$('#table').empty();
+			createTableHeader(completeData.tableHead, completeData);
+			createTableElement(dataObj);
+
+		} else {
+			// console.log(completeData);
+		}
+	}
 }
 
 function createTableElement(tableData) {
